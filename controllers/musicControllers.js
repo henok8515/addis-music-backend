@@ -5,12 +5,15 @@ module.exports.getMusics = async (req, res) => {
   res.json(musics);
 };
 module.exports.createMusic = async (req, res) => {
+  console.log(req.body);
+
   const music = new Music({
     title: req.body.title,
     artist: req.body.artist,
     genre: req.body.genre,
     album: req.body.album,
   });
+  console.log(music);
   try {
     await music.save();
     res.json(music);
@@ -27,10 +30,10 @@ module.exports.updateMusic = async (req, res) => {
     });
 };
 module.exports.deleteMusic = async (req, res) => {
-  const { id } = req.body;
+  const id = req.body.id;
   Music.findByIdAndDelete(id)
-    .then(() => res.json("Deleted successfully"))
+    .then(() => res.json("delete sucess"))
     .catch((err) => {
-      res.json(err);
+      res.json(err, "err here");
     });
 };
